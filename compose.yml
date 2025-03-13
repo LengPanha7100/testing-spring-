@@ -1,0 +1,19 @@
+services:
+  rest-api-db:
+    image : postgres:latest
+    restart: always
+    environment:
+      POSTGRES_DB: rest_api
+      POSTGRES_USER : postgres
+      POSTGRES_PASSWORD : 12345
+    volumes:
+      - rest-api-db-data:/var/lib/postgresql/data
+    ports:
+      - "5434:5432"
+    networks:
+      - rest-api-network
+volumes:
+  rest-api-db-data:
+networks:
+  rest-api-network:
+    driver: bridge
