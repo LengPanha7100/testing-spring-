@@ -2,12 +2,15 @@ package com.example.restapi.service.serviceImp;
 import com.example.restapi.exception.BadRequestException;
 import com.example.restapi.model.Enum.TicketStatusEnum;
 import com.example.restapi.model.Ticket;
+import com.example.restapi.model.TicketUpdateStatus;
 import com.example.restapi.model.request.TicketRequest;
 import com.example.restapi.repository.TicketRepository;
 import com.example.restapi.service.TicketService;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.time.temporal.Temporal;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -60,5 +63,33 @@ public class TicketServiceImp implements TicketService {
     @Override
     public Ticket filterStatusAndDate(TicketStatusEnum status, LocalDate travelDate ) {
         return ticketRepository.filterStatusAndDate(status,travelDate );
+    }
+
+    @Override
+    public List<Ticket> createTicketList(List<TicketRequest> ticketRequestList) {
+        List<Ticket> ticketList = new ArrayList<>();
+
+        for (TicketRequest ticketRequest : ticketRequestList) {
+            Ticket ticket = ticketRepository.createTicket(ticketRequest);
+            ticketList.add(ticket);
+        }
+
+        return ticketList;
+    }
+
+    @Override
+    public List<Ticket> ticketUpdatePaymentStatus(TicketUpdateStatus ticketUpdateStatus, List<Long> ticketIds, Boolean paymentStatus) {
+        if(ticketIds == null || ticketIds.isEmpty()) {
+            throw new BadRequestException("Can't input null or empty list of ticketIds");
+        }
+        List<Ticket>  ticketList = new ArrayList<>();
+        for(Long ticketId  : ticketIds) {
+            Ticket ticket = ticketRepository.updatePaymentStatus(ticketId,paymentStatus);
+            if(ticket != null) {
+                ticketList.add(ticket);
+            }
+
+        }
+        return ticketList;
     }
 }

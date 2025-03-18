@@ -5,6 +5,7 @@ import com.example.restapi.model.Ticket;
 import com.example.restapi.model.request.TicketRequest;
 import org.apache.ibatis.annotations.*;
 
+import javax.swing.text.StyledEditorKit;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -71,4 +72,21 @@ public interface TicketRepository {
     """)
     @ResultMap("ticketId")
     Ticket filterStatusAndDate(TicketStatusEnum status, LocalDate travelDate );
+
+    @Select("""
+    INSERT INTO tickets (passenger_name, travel_date, source_station, destination_station, price, payment_status, ticket_status, seat_number)
+    VALUES(#{ticket.passengerName} , #{ticket.travelDate} , #{ticket.sourceStation} , #{ticket.destinationStation} , #{ticket.price} , #{ticket.paymentStatus},#{ticket.ticketStatus} , #{ticket.seatNumber})
+    RETURNING *;
+    """)
+    @ResultMap("ticketId")
+    List<Ticket> createTicketList(@Param("ticket") List<TicketRequest> ticketRequestList);
+
+    @Select("""
+    UPDATE tickets 
+    SET payment_status = #{paymentStatus}
+    WHERE ticket_id = #{ticketId}
+    returning *;
+    """)
+    @ResultMap("ticketId")
+    Ticket updatePaymentStatus(Long ticketId , @Param("paymentStatus") Boolean paymentStatus);
 }

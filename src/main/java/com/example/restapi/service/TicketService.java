@@ -2,6 +2,7 @@ package com.example.restapi.service;
 
 import com.example.restapi.model.Enum.TicketStatusEnum;
 import com.example.restapi.model.Ticket;
+import com.example.restapi.model.TicketUpdateStatus;
 import com.example.restapi.model.request.TicketRequest;
 
 import java.time.LocalDate;
@@ -22,4 +23,9 @@ public interface TicketService {
     Ticket searchPassengerName(String passengerName);
 
     Ticket filterStatusAndDate(TicketStatusEnum status, LocalDate travelDate );
+
+    List<Ticket> createTicketList(List<TicketRequest> ticketRequestList);
+
+    List<Ticket> ticketUpdatePaymentStatus(TicketUpdateStatus ticketUpdateStatus, List<Long> ticketIds, Boolean paymentStatus);
+
 }

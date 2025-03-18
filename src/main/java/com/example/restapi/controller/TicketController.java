@@ -3,6 +3,7 @@ package com.example.restapi.controller;
 import com.example.restapi.model.APIResponse;
 import com.example.restapi.model.Enum.TicketStatusEnum;
 import com.example.restapi.model.Ticket;
+import com.example.restapi.model.TicketUpdateStatus;
 import com.example.restapi.model.request.TicketRequest;
 import com.example.restapi.service.TicketService;
 import org.springframework.http.HttpStatus;
@@ -96,6 +97,31 @@ public class TicketController {
         Ticket ticket = ticketService.filterStatusAndDate(status, travelDate );
         APIResponse<Ticket> apiResponse = APIResponse.<Ticket>builder()
                 .message("Filter tickets retrieved by status successfully.")
+                .status(HttpStatus.OK)
+                .payload(ticket)
+                .timestamp(LocalDateTime.now())
+                .build();
+        return ResponseEntity.ok(apiResponse);
+    }
+
+    @PostMapping("/bulk")
+    public ResponseEntity<APIResponse<List<Ticket>>> createTicketList(@RequestBody List<TicketRequest> ticketRequestList) {
+        List<Ticket> ticket = ticketService.createTicketList(ticketRequestList);
+        APIResponse<List<Ticket>> apiResponse = APIResponse.<List<Ticket>>builder()
+                .message("Created tickets successfully.")
+                .status(HttpStatus.OK)
+                .payload(ticket)
+                .timestamp(LocalDateTime.now())
+                .build();
+        return ResponseEntity.ok(apiResponse);
+    }
+
+
+    @PutMapping
+    public ResponseEntity<APIResponse<List<Ticket>>> ticketUpdatePaymentStatus(@RequestBody TicketUpdateStatus ticketUpdateStatus){
+        List<Ticket> ticket = ticketService.ticketUpdatePaymentStatus(ticketUpdateStatus, ticketUpdateStatus.getTicketIds() , ticketUpdateStatus.getPaymentStatus());
+        APIResponse<List<Ticket>> apiResponse = APIResponse.<List<Ticket>>builder()
+                .message("Update tickets retrieved by id successfully.")
                 .status(HttpStatus.OK)
                 .payload(ticket)
                 .timestamp(LocalDateTime.now())
