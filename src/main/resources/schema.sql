@@ -1,16 +1,16 @@
 CREATE TABLE tickets (
-         ticketId SERIAL PRIMARY KEY,
-         passengerName VARCHAR(255) NOT NULL,
-         travelDate DATE NOT NULL,
-         sourceStation VARCHAR(255) NOT NULL,
-         destinationStation VARCHAR(255) NOT NULL,
+         ticket_id SERIAL PRIMARY KEY,
+         passenger_name VARCHAR(255) NOT NULL,
+         travel_date DATE NOT NULL,
+         source_station VARCHAR(255) NOT NULL,
+         destination_station VARCHAR(255) NOT NULL,
          price DECIMAL(10, 2) NOT NULL,
-         paymentStatus VARCHAR(50) NOT NULL,
-         ticketStatus VARCHAR(50) NOT NULL,
-         seatNumber VARCHAR(10) NOT NULL
+         payment_status VARCHAR(50) NOT NULL,
+         ticket_status VARCHAR(50) NOT NULL,
+         seat_number VARCHAR(10) NOT NULL
 );
 
-INSERT INTO tickets (passengerName, travelDate, sourceStation, destinationStation, price, paymentStatus, ticketStatus, seatNumber)
+INSERT INTO tickets (passenger_name, travel_date, source_station, destination_station, price, payment_status, ticket_status, seat_number)
 VALUES
     ('John Doe', '2025-03-15', 'New York', 'Los Angeles', 150.00, 'Paid', 'Confirmed', 'A1'),
     ('Jane Smith', '2025-03-16', 'Chicago', 'Houston', 120.50, 'Paid', 'Confirmed', 'B3'),
@@ -21,9 +21,10 @@ VALUES
 
 SELECT * FROM tickets;
 
-SELECT * FROM  tickets WHERE ticketId = 1;
+SELECT * FROM tickets WHERE passenger_name = 'John Doe';
 
+UPDATE tickets SET passenger_name = 'John' WHERE ticket_id = 8;
 
-UPDATE tickets SET passengerName = 'John' WHERE ticketId = 1;
+SELECT * FROM tickets WHERE ticket_status = 'BOOKED' AND travel_date = '2025-03-15';
 
-DELETE FROM tickets WHERE ticketId = 2;
+DELETE FROM tickets WHERE ticket_id = 2;

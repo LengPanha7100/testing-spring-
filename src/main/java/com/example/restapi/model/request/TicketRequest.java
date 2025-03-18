@@ -6,16 +6,18 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Date;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 
-public class TicketRequest {
+public class  TicketRequest {
     private String passengerName;
-    @JsonFormat(pattern = "yyyy-MM-dd")
-    private LocalDateTime travelDate;
+    @JsonFormat(shape = JsonFormat.Shape.STRING , pattern = "yyyy-MM-dd")
+    private LocalDate travelDate;
     private String sourceStation;
     private Double price;
     private String destinationStation;

@@ -1,9 +1,11 @@
 package com.example.restapi.repository;
 
+import com.example.restapi.model.Enum.TicketStatusEnum;
 import com.example.restapi.model.Ticket;
 import com.example.restapi.model.request.TicketRequest;
 import org.apache.ibatis.annotations.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Mapper
@@ -29,10 +31,10 @@ public interface TicketRepository {
     List<Ticket> getAllTicket(Integer page, Integer size);
 
     @Select("""
-    SELECT * FROM  tickets WHERE ticket_id = #{ticket.id};
+    SELECT * FROM  tickets WHERE ticket_id = #{ticketId};
     """)
     @ResultMap("ticketId")
-    Ticket getTicketById(@Param("ticket") Long id);
+    Ticket getTicketById( Long ticketId);
 
     @Select("""
     INSERT INTO tickets (passenger_name, travel_date, source_station, destination_station, price, payment_status, ticket_status, seat_number)
@@ -46,15 +48,27 @@ public interface TicketRepository {
     UPDATE tickets 
     SET passenger_name = #{ticket.passengerName}, travel_date = #{ticket.travelDate} ,source_station =  #{ticket.sourceStation} , destination_station =  #{ticket.destinationStation} ,price = #{ticket.price} ,
     payment_status = #{ticket.paymentStatus}, ticket_status = #{ticket.ticketStatus} , seat_number =  #{ticket.seatNumber}
-    WHERE ticket_id = #{ticket.id}
+    WHERE ticket_id = #{ticketId}
     returning *;
     """)
     @ResultMap("ticketId")
-    Ticket updateTicketById(Long id, @Param("ticket") TicketRequest ticketRequest);
+    Ticket updateTicketById(@Param("ticketId") Long ticketId, @Param("ticket") TicketRequest ticketRequest);
 
     @Select("""
-    DELETE FROM tickets WHERE ticket_id = #{ticket.id};
+    DELETE FROM tickets WHERE ticket_id = #{ticketId};
     """)
     @ResultMap("ticketId")
-    Ticket deleteTicketById(Long id);
+    Ticket deleteTicketById(Long ticketId);
+
+    @Select("""
+    SELECT * FROM tickets WHERE passenger_name = #{passengerName};
+    """)
+    @ResultMap("ticketId")
+    Ticket searchPassengerName(String passengerName);
+
+    @Select("""
+    SELECT * FROM tickets WHERE ticket_status = #{status} AND travel_date = #{travelDate};
+    """)
+    @ResultMap("ticketId")
+    Ticket filterStatusAndDate(TicketStatusEnum status, LocalDate travelDate );
 }
