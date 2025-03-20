@@ -5,7 +5,6 @@ import com.example.restapi.model.Ticket;
 import com.example.restapi.model.request.TicketRequest;
 import org.apache.ibatis.annotations.*;
 
-import javax.swing.text.StyledEditorKit;
 import java.time.LocalDate;
 import java.util.List;
 
