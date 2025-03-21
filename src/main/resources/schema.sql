@@ -28,3 +28,40 @@ UPDATE tickets SET passenger_name = 'John' WHERE ticket_id = 8;
 SELECT * FROM tickets WHERE ticket_status = 'BOOKED' AND travel_date = '2025-03-15';
 
 DELETE FROM tickets WHERE ticket_id = 2;
+
+CREATE TABLE instructor_db(
+  instructor_id SERIAL PRIMARY KEY ,
+  instructor_name VARCHAR(200) NOT NULL,
+  email VARCHAR(200) NOT NULL
+);
+
+SELECT * FROM  instructor_db;
+
+INSERT INTO instructor_db (instructor_name, email)
+VALUES
+    ('John Doe', 'john.doe@example.com'),
+    ('Jane Smith', 'jane.smith@example.com'),
+    ('Mark Johnson', 'mark.johnson@example.com'),
+    ('Emily Davis', 'emily.davis@example.com'),
+    ('Michael Brown', 'michael.brown@example.com');
+
+SELECT * FROM instructor_db WHERE instructor_id = 2;
+
+UPDATE instructor_db SET instructor_name = 'Panha' WHERE instructor_id = 1 ;
+
+DELETE FROM instructor_db where instructor_id = 2;
+
+CREATE TABLE student_db(
+   student_id SERIAL PRIMARY KEY ,
+   student_name VARCHAR(50) not null ,
+   phone_number VARCHAR(40) NOT NULL ,
+   course_id INT,
+   CONSTRAINT fk_course FOREIGN KEY (course_id) REFERENCES course_db(course_id) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+CREATE TABLE course_db(
+      course_id SERIAL PRIMARY KEY ,
+      course_name VARCHAR(50) NOT NULL ,
+      instructor_id INT,
+      CONSTRAINT fk_instructor FOREIGN KEY (instructor_id) REFERENCES instructor_db(instructor_id) ON DELETE CASCADE ON UPDATE CASCADE
+)
