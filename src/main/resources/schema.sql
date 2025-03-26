@@ -51,17 +51,70 @@ UPDATE instructor_db SET instructor_name = 'Panha' WHERE instructor_id = 1 ;
 
 DELETE FROM instructor_db where instructor_id = 2;
 
-CREATE TABLE student_db(
-   student_id SERIAL PRIMARY KEY ,
-   student_name VARCHAR(50) not null ,
-   phone_number VARCHAR(40) NOT NULL ,
-   course_id INT,
-   CONSTRAINT fk_course FOREIGN KEY (course_id) REFERENCES course_db(course_id) ON DELETE CASCADE ON UPDATE CASCADE
-);
+
 
 CREATE TABLE course_db(
       course_id SERIAL PRIMARY KEY ,
       course_name VARCHAR(50) NOT NULL ,
       instructor_id INT,
       CONSTRAINT fk_instructor FOREIGN KEY (instructor_id) REFERENCES instructor_db(instructor_id) ON DELETE CASCADE ON UPDATE CASCADE
-)
+);
+
+INSERT INTO course_db(course_name, instructor_id)
+VALUES ('math',3);
+
+SELECT * FROM course_db;
+
+SELECT * FROM course_db WHERE course_id = 1;
+
+DELETE FROM course_db WHERE course_id = 1 ;
+
+UPDATE course_db SET course_name = 'english'
+WHERE course_id=4;
+
+CREATE TABLE student_db(
+     student_id SERIAL PRIMARY KEY ,
+     student_name VARCHAR(50) not null ,
+     phone_number VARCHAR(40) NOT NULL ,
+     course_id INT,
+     CONSTRAINT fk_course FOREIGN KEY (course_id) REFERENCES course_db(course_id) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+CREATE TABLE student_course_db(
+    id SERIAL PRIMARY KEY ,
+    student_id INT,
+    course_id INT,
+    CONSTRAINT fk_student FOREIGN KEY (student_id) REFERENCES student_db(student_id) ON DELETE CASCADE ON UPDATE CASCADE ,
+    CONSTRAINT fk_course FOREIGN KEY  (course_id) REFERENCES  course_db(course_id) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+INSERT INTO  student_db(student_name, phone_number, course_id)
+VALUES ('panha','0974821711' , 4);
+
+SELECT * FROM student_db WHERE student_id = 1;
+
+SELECT c.course_id , c.course_name , c.instructor_id FROM course_db c
+JOIN student_course_db scd on c.course_id = scd.course_id
+WHERE student_id = 1;
+
+INSERT INTO student_course_db(student_id, course_id)
+VALUES (1 ,4 );
+
+SELECT * FROM student_course_db;
+
+SELECT * FROM student_db;
+
+DELETE FROM student_db WHERE student_id = 1;
+
+INSERT INTO student_db(student_name, phone_number, course_id)
+VALUES ('panha','0974821711' , 4);
+
+UPDATE student_db SET student_name = 'Nita' , phone_number = '054896578' , course_id = 4
+WHERE student_id = 2;
+
+INSERT INTO student_course_db(student_id, course_id)
+VALUES (2,4);
+
+DELETE FROM student_course_db WHERE student_id = 2;
+
+SELECT * FROM student_db WHERE student_name = 'panha';

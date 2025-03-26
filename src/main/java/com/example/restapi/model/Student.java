@@ -10,8 +10,7 @@ import lombok.NoArgsConstructor;
 public class Student {
     private Long studentId;
     private String studentName;
-    private String email;
     private String phoneNumber;
-    private Course course;
+    private Course courseList;
 
 }

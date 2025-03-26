@@ -10,6 +10,5 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class CourseRequest {
     private String courseName;
-    private String description;
-    private Instructor instructor;
+    private Long instructorId;
 }

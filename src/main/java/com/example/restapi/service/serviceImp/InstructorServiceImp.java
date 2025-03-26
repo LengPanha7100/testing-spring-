@@ -26,7 +26,7 @@ public class InstructorServiceImp implements InstructorService {
     public Instructor getInstructorsById(Long id) {
         Instructor instructor = instructorRepository.getInstructorById(id);
         if(instructor == null){
-            throw new BadRequestException("Get by"+ id+ "not found");
+            throw new BadRequestException("Get by "+ id+ " not found");
         }
         return instructor;
     }
