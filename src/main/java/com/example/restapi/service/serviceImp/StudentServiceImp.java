@@ -46,6 +46,7 @@ public class StudentServiceImp implements StudentService {
 
     @Override
     public Student updateStudent(StudentRequest studentRequest, Long id) {
+        getStudentById(id);
         Student student = studentRepository.updateStudent(studentRequest,id);
         studentRepository.deleteByStudentByIdAndCourse(id);
         for(Long courseId : studentRequest.getCourseList()){
@@ -56,14 +57,17 @@ public class StudentServiceImp implements StudentService {
 
     @Override
     public void deleteStudent(Long id) {
+        getStudentById(id);
       studentRepository.deleteStudent(id);
     }
 
     @Override
     public List<Student> searchStudentByName(String name) {
-        if(name == null){
-            throw new BadRequestException("Student name is not found!");
+        List<Student> students = studentRepository.searchStudentByName(name);
+
+        if (students.isEmpty()) {
+            throw new BadRequestException("No student found with the name: " + name);
         }
-        return studentRepository.searchStudentByName(name);
+        return students;
     }
 }

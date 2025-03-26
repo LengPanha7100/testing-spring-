@@ -40,10 +40,7 @@ public class CourseServiceImp implements CourseService {
     @Override
     public Course createCourse(CourseRequest courseRequest) {
         Long instructorId = courseRequest.getInstructorId();
-        Instructor instructor = instructorService.getInstructorsById(courseRequest.getInstructorId());
-        if(instructor == null){
-            throw new BadRequestException("Instructor with ID " + instructorId + " does not exist");
-        }
+        Instructor instructor = instructorService.getInstructorsById(instructorId);
         return courseRepository.createCourse(courseRequest);
     }
 
@@ -52,9 +49,6 @@ public class CourseServiceImp implements CourseService {
         getByIdCourse(id);
         Long instructorId = courseRequest.getInstructorId();
         Instructor instructor = instructorService.getInstructorsById(courseRequest.getInstructorId());
-        if(instructor == null){
-            throw new BadRequestException("Instructor with ID " + instructorId + " does not exist");
-        }
         return courseRepository.updateCourse(courseRequest, id);
     }
 
