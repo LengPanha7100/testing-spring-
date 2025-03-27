@@ -49,4 +49,9 @@ public class InstructorServiceImp implements InstructorService {
        getInstructorsById(id);
        Instructor instructor = instructorRepository.deleteRepository(id);
     }
+
+    @Override
+    public List<Instructor> searchInstructorByName(String instructorName) {
+        return instructorRepository.searchInstructorByName(instructorName);
+    }
 }

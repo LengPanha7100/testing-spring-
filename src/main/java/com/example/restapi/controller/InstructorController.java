@@ -75,4 +75,15 @@ public class InstructorController
         return ResponseEntity.ok(apiResponse);
     }
 
+    @GetMapping("/searchInstructorName")
+    public ResponseEntity<APIResponse<List<Instructor>>> searchInstructorByName(@RequestParam String instructorName) {
+        List<Instructor> instructors = instructorService.searchInstructorByName(instructorName);
+        APIResponse<List<Instructor>> apiResponse = APIResponse.<List<Instructor>>builder()
+                .message("Search instructor name success")
+                .status(HttpStatus.OK)
+                .payload(instructors)
+                .build();
+        return ResponseEntity.ok(apiResponse);
+    }
+
 }

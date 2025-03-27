@@ -47,5 +47,9 @@ public interface InstructorRepository {
     @ResultMap("instructor")
     Instructor deleteRepository(Long id);
 
-
+    @Select("""
+    SELECT * FROM instructor_db WHERE instructor_name = #{instructorName};
+    """)
+    @ResultMap("instructor")
+    List<Instructor> searchInstructorByName(String instructorName);
 }

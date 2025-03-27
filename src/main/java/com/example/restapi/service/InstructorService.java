@@ -15,4 +15,6 @@ public interface InstructorService {
     Instructor updateInstructor(Long id, InstructorRequest instructorRequest);
 
     void deleteInstructor(Long id);
+
+    List<Instructor> searchInstructorByName(String instructorName);
 }

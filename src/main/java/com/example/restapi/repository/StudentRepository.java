@@ -14,7 +14,7 @@ public interface StudentRepository {
             @Result(property = "studentId" , column = "student_id"),
             @Result(property = "studentName" , column = "student_name"),
             @Result(property = "phoneNumber" , column = "phone_number"),
-            @Result(property = "courseList" , column = "course_id",
+            @Result(property = "courseList" , column = "student_id",
             many = @Many(select = "getAllCourseByStudentId")
             )
     })
@@ -55,14 +55,13 @@ public interface StudentRepository {
     @ResultMap("studentId")
     Student createStudent(@Param("student") StudentRequest studentRequest);
 
-    @Select("""
+    @Insert("""
     INSERT INTO student_course_db(student_id, course_id)
     VALUES (#{studentId},#{courseId});
     """)
-    @ResultMap("studentId")
     void insertCourseIdAndStudentId(Long studentId, Long courseId);
 
-    @Select("""
+    @Update("""
     UPDATE student_db SET student_name = #{student.studentName} , phone_number = #{student.phoneNumber}
     WHERE student_id = #{id}
     RETURNING *;
@@ -73,7 +72,6 @@ public interface StudentRepository {
     @Delete("""
     DELETE FROM student_db WHERE student_id = #{id};
     """)
-    @ResultMap("studentId")
     void deleteStudent(Long id);
 
     @Delete("""
