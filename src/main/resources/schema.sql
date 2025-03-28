@@ -118,3 +118,44 @@ VALUES (2,4);
 DELETE FROM student_course_db WHERE student_id = 2;
 
 SELECT * FROM student_db WHERE student_name = 'panha';
+
+CREATE TABLE music_db(
+    id SERIAL PRIMARY KEY NOT NULL ,
+    music_title VARCHAR(200) NOT NULL ,
+    music_name VARCHAR(100) NOT NULL ,
+    amount_song VARCHAR NOT NULL ,
+    image VARCHAR(255) NOT NULL
+);
+
+INSERT INTO music_db (music_title, music_name,amount_song, image)
+VALUES
+    ('Song Title 1', 'Artist 1', '200','image1.jpg')
+
+SELECT * FROM music_db;
+
+SELECT  * FROM music_db WHERE id =5 ;
+
+DELETE FROM music_db WHERE id = 5;
+
+
+CREATE TABLE musicList_db (
+   id SERIAL PRIMARY KEY NOT NULL,
+   music_title VARCHAR(200) NOT NULL,
+   music_name VARCHAR(100) NOT NULL,
+   image VARCHAR(255) NOT NULL,
+   listener INT NOT NULL DEFAULT 0,
+   music_type VARCHAR(100) NOT NULL,
+   duration VARCHAR(5) NOT NULL
+);
+
+SELECT * FROM musicList_db;
+
+INSERT INTO musicList_db (music_title, music_name, image, listener, music_type, duration)
+VALUES
+    ('Song Title 1', 'Artist 1', 'image1.jpg', 100, 'Pop', '03:30'),
+    ('Song Title 2', 'Artist 2', 'image2.jpg', 200, 'Rock', '04:15'),
+    ('Song Title 3', 'Artist 3', 'image3.jpg', 150, 'Jazz', '02:50'),
+    ('Song Title 4', 'Artist 4', 'image4.jpg', 300, 'Classical', '05:00'),
+    ('Song Title 5', 'Artist 5', 'image5.jpg', 250, 'Hip-Hop', '03:45');
+
+DELETE FROM musicList_db WHERE id = 1;
