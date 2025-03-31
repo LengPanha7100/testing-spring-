@@ -1,4 +1,4 @@
-package com.example.restapi.repository;
+package com.example.restapi.repository.team2;
 
 import com.example.restapi.model.Instructor;
 import com.example.restapi.model.request.InstructorRequest;

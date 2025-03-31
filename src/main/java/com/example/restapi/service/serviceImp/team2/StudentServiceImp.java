@@ -1,11 +1,11 @@
-package com.example.restapi.service.serviceImp;
+package com.example.restapi.service.serviceImp.team2;
 
 import com.example.restapi.exception.BadRequestException;
 import com.example.restapi.model.Student;
 import com.example.restapi.model.request.StudentRequest;
-import com.example.restapi.repository.StudentRepository;
-import com.example.restapi.service.CourseService;
-import com.example.restapi.service.StudentService;
+import com.example.restapi.repository.team2.StudentRepository;
+import com.example.restapi.service.team2.CourseService;
+import com.example.restapi.service.team2.StudentService;
 import org.springframework.stereotype.Service;
 import java.util.List;
 
@@ -29,10 +29,11 @@ public class StudentServiceImp implements StudentService {
 
     @Override
     public Student getStudentById(Long id) {
-        if(id == null){
+        Student student = studentRepository.getStudentById(id);
+        if(student == null){
             throw new BadRequestException("Student by id "+id+" not found");
         }
-        return studentRepository.getStudentById(id);
+        return student;
     }
 
     @Override

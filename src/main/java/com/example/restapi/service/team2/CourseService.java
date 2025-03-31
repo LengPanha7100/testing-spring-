@@ -1,4 +1,4 @@
-package com.example.restapi.service;
+package com.example.restapi.service.team2;
 
 import com.example.restapi.model.Course;
 import com.example.restapi.model.request.CourseRequest;

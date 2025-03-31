@@ -1,12 +1,12 @@
-package com.example.restapi.service.serviceImp;
+package com.example.restapi.service.serviceImp.team2;
 
 import com.example.restapi.exception.BadRequestException;
 import com.example.restapi.model.Course;
 import com.example.restapi.model.Instructor;
 import com.example.restapi.model.request.CourseRequest;
-import com.example.restapi.repository.CourseRepository;
-import com.example.restapi.service.CourseService;
-import com.example.restapi.service.InstructorService;
+import com.example.restapi.repository.team2.CourseRepository;
+import com.example.restapi.service.team2.CourseService;
+import com.example.restapi.service.team2.InstructorService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -31,10 +31,11 @@ public class CourseServiceImp implements CourseService {
 
     @Override
     public Course getByIdCourse(Long id) {
-        if(id == null){
+        Course course = courseRepository.getByIdCourse(id);
+        if(course == null){
             throw new BadRequestException("Get by id "+id+ " not found");
         }
-        return courseRepository.getByIdCourse(id);
+        return course;
     }
 
     @Override

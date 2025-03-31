@@ -1,10 +1,10 @@
-package com.example.restapi.service.serviceImp;
+package com.example.restapi.service.serviceImp.team2;
 
 import com.example.restapi.exception.BadRequestException;
 import com.example.restapi.model.Instructor;
 import com.example.restapi.model.request.InstructorRequest;
-import com.example.restapi.repository.InstructorRepository;
-import com.example.restapi.service.InstructorService;
+import com.example.restapi.repository.team2.InstructorRepository;
+import com.example.restapi.service.team2.InstructorService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

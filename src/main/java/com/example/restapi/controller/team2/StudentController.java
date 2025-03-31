@@ -1,13 +1,12 @@
-package com.example.restapi.controller;
+package com.example.restapi.controller.team2;
 
 import com.example.restapi.model.APIResponse;
 import com.example.restapi.model.Student;
 import com.example.restapi.model.request.StudentRequest;
-import com.example.restapi.service.StudentService;
+import com.example.restapi.service.team2.StudentService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.support.JstlUtils;
 
 import java.util.List;
 

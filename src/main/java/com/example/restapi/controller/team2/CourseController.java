@@ -1,8 +1,8 @@
-package com.example.restapi.controller;
+package com.example.restapi.controller.team2;
 import com.example.restapi.model.APIResponse;
 import com.example.restapi.model.Course;
 import com.example.restapi.model.request.CourseRequest;
-import com.example.restapi.service.CourseService;
+import com.example.restapi.service.team2.CourseService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

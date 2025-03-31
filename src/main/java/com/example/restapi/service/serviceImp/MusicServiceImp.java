@@ -24,10 +24,11 @@ public class MusicServiceImp implements MusicService {
 
     @Override
     public Music getByIdMusic(Long id) {
-        if(id == null){
+        Music music = musicRepository.getByIdMusic(id);
+        if(music == null){
             throw new BadRequestException("Get music by id " +id+ " is null");
         }
-        return musicRepository.getByIdMusic(id);
+        return music;
     }
 
     @Override

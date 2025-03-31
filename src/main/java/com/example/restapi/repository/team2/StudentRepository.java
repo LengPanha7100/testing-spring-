@@ -1,9 +1,8 @@
-package com.example.restapi.repository;
+package com.example.restapi.repository.team2;
 
 import com.example.restapi.model.Course;
 import com.example.restapi.model.Student;
 import com.example.restapi.model.request.StudentRequest;
-import com.example.restapi.service.serviceImp.StudentServiceImp;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;

@@ -127,9 +127,6 @@ CREATE TABLE music_db(
     image VARCHAR(255) NOT NULL
 );
 
-INSERT INTO music_db (music_title, music_name,amount_song, image)
-VALUES
-    ('Song Title 1', 'Artist 1', '200','image1.jpg')
 
 SELECT * FROM music_db;
 
@@ -159,3 +156,88 @@ VALUES
     ('Song Title 5', 'Artist 5', 'image5.jpg', 250, 'Hip-Hop', '03:45');
 
 DELETE FROM musicList_db WHERE id = 1;
+
+CREATE TABLE venues_db(
+    venues_id SERIAL PRIMARY KEY ,
+    venues_name VARCHAR(100) NOT NULL ,
+    location VARCHAR(120) Not NULL
+);
+
+
+SELECT * FROM venues_db;
+
+INSERT INTO venues_db (venues_name, location)
+VALUES
+    ('PP', 'PP City'),
+    ('SR', 'SR City'),
+    ('BTB', 'BTB City'),
+    ('KPC', 'KPC City'),
+    ('TK', 'TK City');
+
+SELECT * FROM venues_db WHERE venues_id = 1;
+
+UPDATE venues_db SET venues_name = 'KPC' , location = 'KPC'
+WHERE venues_id =1;
+
+DELETE FROM venues_db WHERE venues_id = 1;
+
+CREATE TABLE events_db(
+    event_id SERIAL PRIMARY KEY ,
+    event_name VARCHAR(100) NOT NULL ,
+    event_date TIMESTAMP,
+    venues_id INT,
+    CONSTRAINT fk_venues FOREIGN KEY (venues_id) REFERENCES venues_db(venues_id) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+SELECT * FROM events_db;
+
+INSERT INTO events_db (event_name, event_date, venues_id)
+VALUES
+    ('Music Festival', '2025-04-10', 3),
+    ('Tech Conference', '2025-05-15', 4),
+    ('Food Expo', '2025-06-20', 5),
+    ('Art Exhibition', '2025-07-05', 6),
+    ('Sports Tournament', '2025-08-12', 7);
+
+SELECT * FROM events_db WHERE event_id = 8;
+
+UPDATE events_db SET event_name = 'music' , event_date = '2025-03-10' ,venues_id = 4
+WHERE event_id = 8;
+
+DELETE FROM events_db WHERE event_id = 6;
+
+CREATE TABLE attendee_db(
+    attendee_id SERIAL PRIMARY KEY ,
+    attendee_name VARCHAR(80) NOT NULL ,
+    email VARCHAR(100) NOT NULL
+);
+CREATE TABLE event_attendee_db(
+    id SERIAL PRIMARY KEY ,
+    event_id int,
+    attendee_id int,
+    CONSTRAINT fk_events FOREIGN KEY (event_id) REFERENCES events_db(event_id) ON DELETE CASCADE ON UPDATE CASCADE ,
+    CONSTRAINT fk_attendee FOREIGN KEY (attendee_id) REFERENCES attendee_db(attendee_id)  ON DELETE CASCADE ON UPDATE  CASCADE
+);
+
+SELECT * FROM attendee_db;
+
+INSERT INTO attendee_db(attendee_name, email)
+VALUES ('test1' , 'test1@gmail.com');
+
+SELECT * FROM attendee_db WHERE attendee_id = 1;
+
+UPDATE attendee_db SET attendee_name = 'test2' WHERE attendee_id=1;
+
+DELETE FROM attendee_db WHERE attendee_id =1 ;
+
+SELECT ev.event_id , ev.event_name , ev.event_date , ev.venues_id FROM events_db ev
+JOIN event_attendee_db ead on ev.event_id = ead.event_id
+WHERE attendee_id = 1;
+
+INSERT INTO event_attendee_db (event_id, attendee_id)
+VALUES (8,1);
+
+DELETE FROM event_attendee_db WHERE attendee_id =1;
+
+
+SELECT * FROM events_db WHERE event_id = 6;

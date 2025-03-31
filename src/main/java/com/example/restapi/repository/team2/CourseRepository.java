@@ -1,4 +1,4 @@
-package com.example.restapi.repository;
+package com.example.restapi.repository.team2;
 
 import com.example.restapi.model.Course;
 import com.example.restapi.model.request.CourseRequest;
@@ -21,7 +21,6 @@ public interface CourseRepository {
     OFFSET #{pageSize} * (#{pageNo}-1)
     """)
     List<Course> getAllCourse(Long pageNo, Long pageSize);
-
     void getInstructorById();
 
     @Select("""
